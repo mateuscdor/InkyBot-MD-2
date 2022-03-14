@@ -37,7 +37,8 @@ process.send('reset')
 break
 
 case 'tag':
-
+var jids = []
+groupMembers.map(v => jids.push(v.id))
 inky.sendMessage(from, {text: q, contextInfo: {mentionedJid: jids}})
 break
 

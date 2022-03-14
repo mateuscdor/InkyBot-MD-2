@@ -33,7 +33,7 @@ if (!q || m.quoted == null) return
 var jids = []
 var teks = q ? q : m.quoted.text
 groupMembers.map(v => jids.push(v.id))
-inky.sendMessage(m.chat, { text: teks, contextInfo: {mentionedJid: jids} }, { quoted: m })
+m.reply(teks, m.chat, jids)
 break
 
 			default:

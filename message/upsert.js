@@ -31,11 +31,6 @@ module.exports = inky = async(inky, m, mek) => {
 		
 		switch (command) {
 
-case 'reset':
-m.reply('Por favor espere')
-process.send('reset')
-break
-
 case 'hidetag':
 var jids = []
 var teks = q ? q : m.quoted.text

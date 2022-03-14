@@ -13,7 +13,7 @@ const {
 } = require('@adiwajshing/baileys-md')
 const { state, saveState } = useSingleFileAuthState('./session.json')
 const fs = require('fs')
-const pino = require('pino')
+const P = require('pino')
 
 /*
     Js

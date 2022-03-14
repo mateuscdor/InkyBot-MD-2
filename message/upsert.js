@@ -24,6 +24,10 @@ module.exports = inky = async(inky, m, mek) => {
 	const isOwner = owner.includes(senderNumber)
 	const isStaff = staff.includes(senderNumber) || isOwner || isMe
 	
+	const Json = (string) => {
+		return JSON.stringify(string, null, 2)
+	}
+	
 	switch (command) {
 
 case 'hidetag':

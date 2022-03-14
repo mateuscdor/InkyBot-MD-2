@@ -9,6 +9,7 @@ module.exports = inky = async(inky, m, mek) => {
   try {
     const from = m.chat
     const quoted = m.quoted ? m.quoted : m
+    const type = Object.keys(m.message)[0]
     const body = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : ''
     
     const isCmd = body.startsWith(prefix)

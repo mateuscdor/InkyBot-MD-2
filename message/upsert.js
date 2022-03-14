@@ -17,8 +17,8 @@ module.exports = inky = async(inky, m, mek) => {
 	const q = args.join(' ')
 	const senderNumber = m.sender.split('@')[0]
 	const pushname = m.pushName ? m.pushName : 'Sin nombre'
-	const senderStatus = await inky.fetchStatus(m.sender)
-	const senderBio = senderStatus.status
+	const senderStatus = await inky.fetchStatus(m.sender) ? await inky.fetchStatus(m.sender) : false
+	const senderBio = senderStatus ? senderStatus.status : 'Sin Bio'
 	const groupMetadata = m.isGroup ? await inky.groupMetadata(m.chat) : ''
 	const groupMembers = m.isGroup ? groupMetadata.participants : ''
 	

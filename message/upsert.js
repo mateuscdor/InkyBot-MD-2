@@ -9,7 +9,7 @@ const util = require('util')
 
 module.exports = inky = async(inky, m, mek) => {
 	try {
-		const body = (m.mtype === 'conversation') ? mek.message.conversation : (m.mtype === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : (m.mtype == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (m.mtype == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : ''
+		const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : ''
 		
 		const isCmd = body.startsWith(prefix)
 		const command = isCmd ? body.slice(1).trim().split(' ').shift().toLowerCase() : ''

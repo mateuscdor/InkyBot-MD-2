@@ -82,6 +82,9 @@ break
 		}
 	} catch(e) {
 		var isError = String(e)
+		
+		if (isError.includes('bad-request')) return
+		
 		m.reply(isError)
 	}
 }

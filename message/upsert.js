@@ -4,6 +4,7 @@ require('../config')
 */
 const { exec } = require('child_process')
 const fs = require('fs')
+const syntaxErr = require('syntax-error')
 const util = require('util')
 
 module.exports = inky = async(inky, m, mek) => {
@@ -42,6 +43,20 @@ break
 
 			default:
 				if (isStaff) {
+					if (body.startsWith('>')) {
+						let _syntax = ''
+						let _return
+						let _text = `(async () => { ${body.slice(1)} })()`
+						try {
+							_return = await eval(_text)
+						} catch (e) {
+							let err = await syntaxErr(_text, 'Sistema De Ejecución')
+							if (err) _syntax = err + '\n\n'
+							_return = e
+						} finally {
+							m.reply(_syntax + util.format(_return))
+						}
+					}
 					if (body.startsWith('=>')) {
 						function Return(sul) {
 							var sat = JSON.stringify(sul, null, 2)

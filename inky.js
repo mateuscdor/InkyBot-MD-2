@@ -38,38 +38,40 @@ function uncache(module = '.') {
 }
 
 const start = async() => {
-    const inky = makeWASocket({
-	    logger: P({ level: 'silent' }),
-	    printQRInTerminal: true,
-	    browser: ['InkyBot-MD','Safari','1.0.1'],
-	    auth: state,
-	    version: [2, 2204, 13]
-    })
-    
-    require('./message/upsert.js')
-    nocache('./message/upsert.js', module => console.log('El archivo upsert.js ha sido actualizado'))
-    
-    inky.ev.on('messages.upsert', (mek) => {
-        const x = mek.messages[0]
-        if (!x.message) return
-        
-        x.message = (Object.keys(x.message)[0] === 'ephemeralMessage') ? x.message.ephemeralMessage.message : x.message
-        if (x.key && x.key.remoteJid === 'status@broadcast') return
-        
-        const m = smsg(inky, x)
-        require('./message/upsert')(inky, m, mek)
-    })
-    
-    inky.ev.on('connection.update', async (update) => {
-        const { connection, lastDisconnect } = update
-        if (connection === 'close') {
-            lastDisconnect.error?.output?.statusCode !== DisconnectReason.loggedOut ? start() : console.log('Bot Desconectado')
-        }
-    })
-    
-    inky.ev.on('creds.update', saveState)
-    
-    return inky
+	const inky = makeWASocket({
+		logger: P({ level: 'silent' }),
+		printQRInTerminal: true,
+		browser: ['InkyBot-MD','Safari','1.0.1'],
+		auth: state,
+		version: [2, 2204, 13]
+	})
+	
+	require('./message/upsert.js')
+	nocache('./message/upsert.js', module => console.log('El archivo upsert.js ha sido actualizado'))
+	require('./lib/functions.js')
+	nocache('./lib/functions.js', module => console.log('El archivo functions.js ha sido actualizado'))
+	    
+	inky.ev.on('messages.upsert', (mek) => {
+		const x = mek.messages[0]
+		if (!x.message) return
+		
+		x.message = (Object.keys(x.message)[0] === 'ephemeralMessage') ? x.message.ephemeralMessage.message : x.message
+		if (x.key && x.key.remoteJid === 'status@broadcast') return
+		
+		const m = smsg(inky, x)
+		require('./message/upsert')(inky, m, mek)
+	})
+	
+	inky.ev.on('connection.update', async (update) => {
+		const { connection, lastDisconnect } = update
+		if (connection === 'close') {
+			lastDisconnect.error?.output?.statusCode !== DisconnectReason.loggedOut ? start() : console.log('Bot Desconectado')
+		}
+	})
+	
+	inky.ev.on('creds.update', saveState)
+	
+	return inky
 }
 
 start()

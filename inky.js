@@ -1,3 +1,6 @@
+/*
+    Libreria
+*/
 const {
   default: makeWASocket,
   useSingleFileAuthState,
@@ -11,6 +14,11 @@ const {
 const { state, saveState } = useSingleFileAuthState('./session.json')
 const fs = require('fs')
 const pino = require('pino')
+
+/*
+    Js
+*/
+const { smsg } = require('./lib/functions')
 
 const start = async() => {
   const inky = makeWASocket({
@@ -30,7 +38,7 @@ const start = async() => {
       if (x.key && x.key.remoteJid === 'status@broadcast') return
       
       const m = smsg(inky, x)
-      require('./shiro')(inky, m, mek)
+      require('./message/upsert')(inky, m, mek)
     } catch (e) {
       var isError = String(e)
       console.log(isError)

@@ -4,6 +4,7 @@ require('../config')
 */
 const { exec } = require('child_process')
 const fs = require('fs')
+const os = require('os')
 const syntaxErr = require('syntax-error')
 const util = require('util')
 

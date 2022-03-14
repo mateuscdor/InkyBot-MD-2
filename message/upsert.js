@@ -36,10 +36,11 @@ m.reply('Por favor espere')
 process.send('reset')
 break
 
-case 'tag':
+case 'hidetag':
 var jids = []
+var teks = q ? q : m.quoted.text
 groupMembers.map(v => jids.push(v.id))
-inky.sendMessage(from, {text: q, contextInfo: {mentionedJid: jids}})
+inky.sendMessage(from, { text: teks, contextInfo: {mentionedJid: jids} }, { quoted: m })
 break
 
 			default:

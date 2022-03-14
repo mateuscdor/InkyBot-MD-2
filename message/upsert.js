@@ -16,17 +16,22 @@ module.exports = inky = async(inky, m, mek) => {
 		
 		const args = body.trim().split(/ +/).slice(1)
 		const q = args.join(' ')
-		const sender = m.sender
-		const senderNumber = sender.split('@')[0]
+		const senderNumber = m.sender.split('@')[0]
 		const pushname = m.pushName ? m.pushName : 'Sin nombre'
+		const senderStatus = await inky.fetchStatus(m.sender)
+		const senderBio = senderStatus.status
 		const groupMetadata = m.isGroup ? await inky.groupMetadata(m.chat) : ''
 		const groupMembers = m.isGroup ? groupMetadata.participants : ''
 		
-		const isMe = sender.includes(inky.user.id)
+		const isMe = m.sender.includes(inky.user.id)
 		const isOwner = owner.includes(senderNumber)
 		const isStaff = staff.includes(senderNumber) || isOwner || isMe
 		
 		switch (command) {
+
+case '':
+
+break
 
 case 'hidetag':
 if (!q || m.quoted == null) return

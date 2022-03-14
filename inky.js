@@ -71,19 +71,6 @@ const start = async() => {
 	
 	inky.ev.on('creds.update', saveState)
 	
-	inky.replyButLoc = (from, contentText, footerText, buttons = [], image) => {
-		var buttonMessage = {
-			location: {
-				jpegThumbnail: image
-			},
-			contentText: contentText,
-			footerText: footerText,
-			buttons: buttons,
-			headerType: 6
-		}
-		inky.sendMessage(from, buttonMessage)
-	}
-	
 	return inky
 }
 

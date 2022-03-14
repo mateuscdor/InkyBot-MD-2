@@ -9,8 +9,6 @@ const util = require('util')
 
 module.exports = inky = async(inky, m, mek) => {
 	try {
-		const from = m.chat
-		const quoted = m.quoted ? m.quoted : m
 		const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
 		
 		const isCmd = body.startsWith(prefix)
@@ -18,12 +16,11 @@ module.exports = inky = async(inky, m, mek) => {
 		
 		const args = body.trim().split(/ +/).slice(1)
 		const q = args.join(' ')
-		const isGroup = m.isGroup
 		const sender = m.sender
 		const senderNumber = sender.split('@')[0]
 		const pushname = m.pushName ? m.pushName : 'Sin nombre'
-		const groupMetadata = isGroup ? await inky.groupMetadata(from) : ''
-		const groupMembers = isGroup ? groupMetadata.participants : ''
+		const groupMetadata = m.isGroup ? await inky.groupMetadata(m.chat) : ''
+		const groupMembers = m.isGroup ? groupMetadata.participants : ''
 		
 		const isMe = sender.includes(inky.user.id)
 		const isOwner = owner.includes(senderNumber)
@@ -35,7 +32,7 @@ case 'hidetag':
 var jids = []
 var teks = q ? q : m.quoted.text
 groupMembers.map(v => jids.push(v.id))
-inky.sendMessage(from, { text: teks, contextInfo: {mentionedJid: jids} }, { quoted: m })
+inky.sendMessage(m.chat, { text: teks, contextInfo: {mentionedJid: jids} }, { quoted: m })
 break
 
 			default:

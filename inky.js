@@ -39,9 +39,11 @@ function uncache(module = '.') {
 
 const start = async() => {
     const inky = makeWASocket({
-        logger: P({ level: 'silent' }),
-        printQRInTerminal: true,
-        auth: state
+	    logger: P({ level: 'silent' }),
+	    printQRInTerminal: true,
+	    browser: ['InkyBot-MD','Safari','1.0.1'],
+	    auth: state,
+	    version: [2, 2204, 13]
     })
     
     require('./message/upsert.js')
@@ -55,6 +57,7 @@ const start = async() => {
         if (x.key && x.key.remoteJid === 'status@broadcast') return
         
         const m = smsg(inky, x)
+	console.log(JSON.stringify(m, null, 2))
         require('./message/upsert')(inky, m, mek)
     })
     

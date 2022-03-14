@@ -1,9 +1,18 @@
-require('../config')
 /*
     Librerias
 */
 const { exec } = require('child_process')
 const util = require('util')
+
+const owner = [
+  '595995660558',
+  '50760303041',
+  '522213483793'
+]
+const staff = [
+  '50768666666'
+]
+var prefix = '#'
 
 module.exports = inky = async(inky, m, mek) => {
 	try {
@@ -65,7 +74,7 @@ break
 					}
 				}
 		}
-		
+		console.log(m)
 	} catch(e) {
 		var isError = String(e)
 		m.reply(isError)

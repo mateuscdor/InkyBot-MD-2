@@ -4,7 +4,6 @@ require('../config')
 */
 const { exec } = require('child_process')
 const fs = require('fs')
-const os = require('os')
 const syntaxErr = require('syntax-error')
 const util = require('util')
 
@@ -24,34 +23,6 @@ module.exports = inky = async(inky, m, mek) => {
 	const isMe = m.sender.includes(inky.user.id)
 	const isOwner = owner.includes(senderNumber)
 	const isStaff = staff.includes(senderNumber) || isOwner || isMe
-	
-	const used = process.memoryUsage()
-	const cpus = os.cpus().map(cpu => {
-		cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
-		return cpu
-	})
-	const cpu = cpus.reduce((last, cpu, _, {
-		length
-	}) => {
-		last.total += cpu.total
-		last.speed += cpu.speed / length
-		last.times.user += cpu.times.user
-		last.times.nice += cpu.times.nice
-		last.times.sys += cpu.times.sys
-		last.times.idle += cpu.times.idle
-		last.times.irq += cpu.times.irq
-		return last
-	}, {
-		speed: 0,
-		total: 0,
-		times: {
-			user: 0,
-			nice: 0,
-			sys: 0,
-			idle: 0,
-			irq: 0
-		}
-	})
 	
 	switch (command) {
 

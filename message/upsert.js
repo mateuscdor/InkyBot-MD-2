@@ -9,7 +9,7 @@ module.exports = inky = async(inky, m, mek) => {
   try {
     const from = m.chat
     const quoted = m.quoted ? m.quoted : m
-    const body = x.body
+    const body = m.body
     
     const isCmd = body.startsWith(prefix)
     const command = isCmd ? body.slice(1).trim().split(' ').shift().toLowerCase() : ''

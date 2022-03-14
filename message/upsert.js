@@ -21,6 +21,8 @@ module.exports = inky = async(inky, m, mek) => {
 		const sender = m.sender
 		const senderNumber = sender.split('@')[0]
 		const pushname = m.pushName ? m.pushName : 'Sin nombre'
+		const groupMetadata = isGroup ? await inky.groupMetadata(from) : ''
+		const groupMembers = isGroup ? groupMetadata.participants : ''
 		
 		const isMe = sender.includes(inky.user.id)
 		const isOwner = owner.includes(senderNumber)
@@ -31,6 +33,11 @@ module.exports = inky = async(inky, m, mek) => {
 case 'reset':
 m.reply('Por favor espere')
 process.send('reset')
+break
+
+case 'tag':
+
+inky.sendMessage(from, {text: q, contextInfo: {mentionedJid: jids}})
 break
 
 			default:

@@ -57,7 +57,6 @@ const start = async() => {
         if (x.key && x.key.remoteJid === 'status@broadcast') return
         
         const m = smsg(inky, x)
-	console.log(JSON.stringify(m, null, 2))
         require('./message/upsert')(inky, m, mek)
     })
     

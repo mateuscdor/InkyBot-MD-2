@@ -57,15 +57,6 @@ break
 							m.reply(String(e))
 						}
 					}
-					if (body.startsWith('>')) {
-						try {
-							let evaled = await eval(body.slice(1))
-							if (typeof evaled !== 'string') evaled = util.inspect(evaled)
-							m.reply(evaled)
-						} catch (e) {
-							m.reply(String(e))
-						}
-					}
 					if (body.startsWith('$')) {
 						exec(body.slice(1), (err, stdout) => {
 							if (err) return m.reply(err)

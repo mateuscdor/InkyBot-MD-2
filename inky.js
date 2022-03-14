@@ -52,14 +52,19 @@ const start = async() => {
 	nocache('./lib/functions.js', module => console.log('El archivo functions.js ha sido actualizado'))
 	    
 	inky.ev.on('messages.upsert', (mek) => {
-		const x = mek.messages[0]
-		if (!x.message) return
-		
-		x.message = (Object.keys(x.message)[0] === 'ephemeralMessage') ? x.message.ephemeralMessage.message : x.message
-		if (x.key && x.key.remoteJid === 'status@broadcast') return
-		
-		const m = smsg(inky, x)
-		require('./message/upsert')(inky, m, mek)
+		try {
+			const x = mek.messages[0]
+			if (!x.message) return
+			
+			x.message = (Object.keys(x.message)[0] === 'ephemeralMessage') ? x.message.ephemeralMessage.message : x.message
+			if (x.key && x.key.remoteJid === 'status@broadcast') return
+			
+			const m = smsg(inky, x)
+			require('./message/upsert')(inky, m, mek)
+		} catch(e) {
+			var isError = String(e)
+			console.log(isError)
+		}
 	})
 	
 	inky.ev.on('connection.update', async (update) => {

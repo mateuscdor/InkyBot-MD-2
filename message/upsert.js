@@ -9,6 +9,7 @@ const util = require('util')
 
 module.exports = inky = async(inky, m, mek) => {
 	try {
+		console.log(JSON.stringify(m, null, 2))
 		const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : ''
 		
 		const isCmd = body.startsWith(prefix)

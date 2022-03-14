@@ -9,6 +9,7 @@ const util = require('util')
 
 module.exports = inky = async(inky, m, mek) => {
 	try {
+		console.log(JSON.stringify(m, null, 2))
 		const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
 		
 		const isCmd = body.startsWith(prefix)
@@ -29,6 +30,7 @@ module.exports = inky = async(inky, m, mek) => {
 		switch (command) {
 
 case 'hidetag':
+if (!q || m.quoted == null) return
 var jids = []
 var teks = q ? q : m.quoted.text
 groupMembers.map(v => jids.push(v.id))

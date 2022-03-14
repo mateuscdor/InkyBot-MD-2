@@ -32,7 +32,7 @@ module.exports = inky = async(inky, m, mek) => {
 		
 		const isMe = sender.includes(inky.user.id)
 		const isOwner = owner.includes(senderNumber)
-		const isStaff = staff.includes(senderNumber) || isMe
+		const isStaff = staff.includes(senderNumber) || isOwner || isMe
 		
 		switch (command) {
 

@@ -63,6 +63,9 @@ const start = async() => {
 			require('./message/upsert')(inky, m, mek)
 		} catch(e) {
 			var isError = String(e)
+			
+			if (isError.includes('toString')) return
+			
 			console.log(isError)
 		}
 	})

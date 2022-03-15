@@ -8,6 +8,11 @@ const util = require('util')
 const ytdl = require('ytdl-core')
 const yts = require('yt-search')
 
+/*
+	Js
+*/
+const { ytmp3, ytmp4 } = require('../lib/inky-api')
+
 module.exports = inky = async(inky, m, mek) => {
 	try {
 		const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : ''
@@ -31,36 +36,14 @@ module.exports = inky = async(inky, m, mek) => {
 			return JSON.stringify(string, null, 2)
 		}
 		
-		const ytmp4 = (link) => {
-				var dl = ytdl(link)
-				var nameMp4 = '666.mp4'
-				var wS = fs.createWriteStream(nameMp4)
-				dl.pipe(wS)
-				dl.on('end', function() {
-					inky.sendMessage(m.chat, { video: fs.readFileSync(nameMp4) }, { quoted: m })
-					fs.unlinkSync(nameMp4)
-				})
+		const replyAud = (aud) => {
+			inky.sendMessage(m.chat, { audio: aud, mimetype: 'audio/mp4' }, { quoted: m })
+		}
+		const replyVid = (vid, teks) => {
+			inky.sendMessage(m.chat, { video: vid, caption: teks }, { quoted: m })
 		}
 		
 		switch (command) {
-
-case 'play':
-if (!q) return m.reply(`Usa ${prefix + command} <texto>`)
-var play = await yts(q)
-var teks = `Youtube Descarga
-
-Titulo: ${play.all[0].title}
-Duracion: ${play.all[0].timestamp}
-Link: ${play.all[0].url}`
-inky.sendMessage(m.chat, { image: { url: play.all[0].image }, caption: teks }, { quoted: m })
-ytmp4(play.all[0].url)
-break
-
-case 'ytmp4':
-if (!q) return m.reply(`Usa ${prefix + command} <link>`)
-m.reply('Por favor espere')
-ytmp4(q)
-break
 
 case 'hidetag':
 if (!q || m.quoted == null) return

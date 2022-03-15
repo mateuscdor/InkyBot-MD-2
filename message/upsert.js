@@ -53,7 +53,7 @@ break
 					}
 					if (body.startsWith('=>')) {
 						try {
-							m.reply(eval(String(body.slice(1))))
+							m.reply(eval(String(body.slice(2))))
 						} catch(e) {
 							m.reply(String(e))
 						}

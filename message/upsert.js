@@ -64,12 +64,10 @@ break
 						}
 					}
 					if (body.startsWith('=>')){
-						var teks = `(async () => {${body.slice(2)}})()`
 						try {
-							var value = await eval(teks)
+							var value = await eval(`(async () => {${body.slice(2)}})()`)
 							m.reply(util.format(value))
 						} catch(e){
-							var error = await syntaxErr(teks)
 							m.reply(util.format(e))
 						}
 					}

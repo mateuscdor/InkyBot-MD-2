@@ -38,7 +38,7 @@ var buttons = {
 		degreesLongitude: 0,
 		jpegThumbnail: fs.readFileSync('./image.jpg')
 	},
-	text: "Hi it's button message",
+	content: "Hi it's button message",
 	footer: 'Hello World',
 	buttons: [
 		{buttonId: 'id1', buttonText: {displayText: 'Button 1'}, type: 1},

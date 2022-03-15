@@ -44,7 +44,7 @@ module.exports = inky = async(inky, m, mek) => {
 		
 		switch (command) {
 
-case 'playvid':
+case 'play':
 if (!q) return m.reply(`Usa ${prefix + command} <text>`)
 var play = await yts(q)
 var teks = `Youtube Descarga

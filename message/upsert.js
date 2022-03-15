@@ -47,7 +47,7 @@ module.exports = inky = async(inky, m, mek) => {
 case 'playvid':
 if (!q) return m.reply(`Usa ${prefix + command} <text>`)
 var play = await yts(q)
-var teks = `${botName} Youtube
+var teks = `Youtube Descarga
 
 Titulo: ${play.all[0].title}
 Duracion: ${play.all[0].timestamp}

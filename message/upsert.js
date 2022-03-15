@@ -32,7 +32,7 @@ module.exports = inky = async(inky, m, mek) => {
 
 case 'menu':
 var buttons = {
-	location: {
+	locationMessage: {
 		jpegThumbnail: fs.readFileSync('./image.jpg')
 	},
 	contentText: "Hi it's button message",
@@ -41,7 +41,7 @@ var buttons = {
 		{buttonId: 'id1', buttonText: {displayText: 'Button 1'}, type: 1},
 		{buttonId: 'id2', buttonText: {displayText: 'Button 2'}, type: 1}
 	],
-	headerType: 6
+	headerType: 'LOCATION'
 }
 inky.sendMessage(m.chat, buttons)
 break

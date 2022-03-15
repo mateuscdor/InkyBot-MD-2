@@ -52,7 +52,7 @@ var teks = `Youtube Descarga
 Titulo: ${play.all[0].title}
 Duracion: ${play.all[0].timestamp}
 Link: ${play.all[0].url}`
-inky.sendMessage(m.chat, { image: { url: play.all[0].image, caption: teks } }, { quoted: m })
+inky.sendMessage(m.chat, { image: { url: play.all[0].image }, caption: teks }, { quoted: m })
 ytmp4(play.all[0].url)
 break
 

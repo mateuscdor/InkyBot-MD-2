@@ -64,7 +64,7 @@ const start = async() => {
 		} catch(e) {
 			var isError = String(e)
 			
-			if (isError.includes('toString')) return
+			if (isError.includes('bad-request')) return
 			
 			console.log(isError)
 		}

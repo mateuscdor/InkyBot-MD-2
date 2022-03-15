@@ -37,7 +37,7 @@ module.exports = inky = async(inky, m, mek) => {
 				var wS = fs.createWriteStream(nameMp4)
 				dl.pipe(wS)
 				dl.on('end', function() {
-					inky.sendMessage(m.chat, { video: fs.readFileSync(nameMp4) }, { quoted: mek })
+					inky.sendMessage(m.chat, { video: fs.readFileSync(nameMp4) }, { quoted: m })
 					fs.unlinkSync(nameMp4)
 				})
 		}

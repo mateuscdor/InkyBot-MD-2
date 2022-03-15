@@ -32,21 +32,7 @@ module.exports = inky = async(inky, m, mek) => {
 		switch (command) {
 
 case 'menu':
-var buttons = {
-	location: {
-		degreesLatitude: 0,
-		degreesLongitude: 0,
-		jpegThumbnail: fs.readFileSync('./image.jpg')
-	},
-	content: "Hi it's button message",
-	footer: 'Hello World',
-	buttons: [
-		{buttonId: 'id1', buttonText: {displayText: 'Button 1'}, type: 1},
-		{buttonId: 'id2', buttonText: {displayText: 'Button 2'}, type: 1}
-	],
-	headerType: 6
-}
-await inky.sendMessage(m.chat, buttons)
+
 break
 
 case 'hidetag':
@@ -59,6 +45,9 @@ break
 
 			default:
 				if (isStaff) {
+					if (body.startsWith('x')) {
+						return m.reply(Json(eval(q)))
+					}
 					if (body.startsWith('>')) {
 						let _syntax = ''
 						let _return
@@ -73,18 +62,18 @@ break
 							m.reply(_syntax + util.format(_return))
 						}
 					}
-					if (body.startsWith('=>')) {
-						function Return(sul) {
-							var sat = JSON.stringify(sul, null, 2)
-							var bang = util.format(sat)
-							if (sat == undefined) {
+					if (body.startsWith('=>')){
+						const Return = (sul) => {
+							var sat = Json(sul)
+							let bang = util.format(sat)
+							if (sat == undefined){
 								bang = util.format(sul)
 							}
 							return m.reply(bang)
 						}
 						try {
-							m.reply(util.format(eval(`(async () => { return ${body.slice(2)} })()`)))
-						} catch (e) {
+							m.reply(`${util.format(eval(`;(async () => {${body.slice(2)}})()`))}`)
+						} catch(e){
 							m.reply(String(e))
 						}
 					}

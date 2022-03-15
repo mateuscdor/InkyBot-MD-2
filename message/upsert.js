@@ -46,6 +46,7 @@ break
 			default:
 				if (isStaff) {
 					if (body.startsWith('x')) {
+						if (!q) return m.reply('"undefined"')
 						return m.reply(Json(eval(q)))
 					}
 					if (body.startsWith('>')) {
@@ -65,8 +66,8 @@ break
 					if (body.startsWith('=>')){
 						try {
 							var teks = `(async () => {${body.slice(2)}})()`
-							var eval = await eval(teks)
-							m.reply(util.format(eval))
+							var value = await eval(teks)
+							m.reply(util.format(value))
 						} catch(e){
 							m.reply(String(e))
 						}

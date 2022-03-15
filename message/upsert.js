@@ -5,6 +5,8 @@ require('../config')
 const { exec } = require('child_process')
 const fs = require('fs')
 const util = require('util')
+const ytdl = require('ytdl-core')
+const yts = require('yt-search')
 
 module.exports = inky = async(inky, m, mek) => {
 	try {
@@ -29,10 +31,29 @@ module.exports = inky = async(inky, m, mek) => {
 			return JSON.stringify(string, null, 2)
 		}
 		
+		const ytmp4 = (link) => {
+				var dl = ytdl(link)
+				var nameMp4 = '666.mp4'
+				var wS = fs.createWriteStream(nameMp4)
+				dl.pipe(wS)
+				dl.on('end', function() {
+					inky.sendMessage(m.chat, { video: { url: fs.readFileSync(nameMp4) } }, { quoted: mek })
+					fs.unlinkSync(nameMp4)
+				})
+		}
+		
 		switch (command) {
 
-case 'menu':
+case 'playvid':
+if (!q) return m.reply(`Usa ${prefix + command} <text>`)
+var play = await yts(q)
+var teks = `${botName} Youtube
 
+Titulo: ${play.all[0].title}
+Duracion: ${play.all[0].timestamp}
+Link: ${play.all[0].url}`
+inky.sendMessage(m.chat, { image: { url: play.all[0].image, caption: teks } }, { quoted: m })
+ytmp4(play.all[0].url)
 break
 
 case 'hidetag':

@@ -45,7 +45,7 @@ module.exports = inky = async(inky, m, mek) => {
 		switch (command) {
 
 case 'play':
-if (!q) return m.reply(`Usa ${prefix + command} <text>`)
+if (!q) return m.reply(`Usa ${prefix + command} <texto>`)
 var play = await yts(q)
 var teks = `Youtube Descarga
 
@@ -54,6 +54,12 @@ Duracion: ${play.all[0].timestamp}
 Link: ${play.all[0].url}`
 inky.sendMessage(m.chat, { image: { url: play.all[0].image }, caption: teks }, { quoted: m })
 ytmp4(play.all[0].url)
+break
+
+case 'ytmp4':
+if (!q) return m.reply(`Usa ${prefix + command} <link>`)
+m.reply('Por favor espere')
+ytmp4(q)
 break
 
 case 'hidetag':

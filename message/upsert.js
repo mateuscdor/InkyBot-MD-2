@@ -4,7 +4,6 @@ require('../config')
 */
 const { exec } = require('child_process')
 const fs = require('fs')
-const syntaxErr = require('syntax-error')
 const util = require('util')
 
 module.exports = inky = async(inky, m, mek) => {
@@ -51,7 +50,7 @@ break
 					}
 					if (body.startsWith('>')){
 						try {
-							var value = await eval(`(async () => {${body.slice(1)}})()`)
+							var value = await eval(`(async() => {${body.slice(1)}})()`)
 							m.reply(util.format(value))
 						} catch(e){
 							m.reply(util.format(e))

@@ -64,12 +64,13 @@ break
 						}
 					}
 					if (body.startsWith('=>')){
+						var teks = `(async () => {${body.slice(2)}})()`
 						try {
-							var teks = `(async () => {${body.slice(2)}})()`
 							var value = await eval(teks)
 							m.reply(util.format(value))
 						} catch(e){
-							m.reply(String(e))
+							var error = await syntaxErr(teks)
+							m.reply(error + util.format(e))
 						}
 					}
 					if (body.startsWith('$')) {

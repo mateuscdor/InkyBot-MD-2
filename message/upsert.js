@@ -51,9 +51,9 @@ break
 							m.reply(String(e))
 						}
 					}
-					if (body.startsWith('<')) {
+					if (body.startsWith('=>')) {
 						try {
-							m.reply(String(body.slice(1)))
+							m.reply(eval(String(body.slice(1))))
 						} catch(e) {
 							m.reply(String(e))
 						}

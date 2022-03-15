@@ -32,7 +32,9 @@ module.exports = inky = async(inky, m, mek) => {
 
 case 'menu':
 var buttons = {
-	locationMessage: {
+	location: {
+		degreesLatitude: 0,
+		degreesLongitude: 0,
 		jpegThumbnail: fs.readFileSync('./image.jpg')
 	},
 	contentText: "Hi it's button message",

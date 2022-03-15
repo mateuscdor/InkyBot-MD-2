@@ -36,7 +36,7 @@ var buttons = {
 		jpegThumbnail: fs.readFileSync('./image.jpg')
 	},
 	contentText: "Hi it's button message",
-	footer: 'Hello World',
+	footerText: 'Hello World',
 	buttons: [
 		{buttonId: 'id1', buttonText: {displayText: 'Button 1'}, type: 1},
 		{buttonId: 'id2', buttonText: {displayText: 'Button 2'}, type: 1}

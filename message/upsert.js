@@ -49,23 +49,9 @@ break
 						if (!q) return m.reply('"undefined"')
 						return m.reply(Json(eval(q)))
 					}
-					if (body.startsWith('>')) {
-						let _syntax = ''
-						let _return
-						let _text = `(async () => { ${body.slice(1)} })()`
+					if (body.startsWith('>')){
 						try {
-							_return = await eval(_text)
-						} catch (e) {
-							let err = await syntaxErr(_text, 'Sistema De Ejecución')
-							if (err) _syntax = err + '\n\n'
-							_return = e
-						} finally {
-							m.reply(_syntax + util.format(_return))
-						}
-					}
-					if (body.startsWith('=>')){
-						try {
-							var value = await eval(`(async () => {${body.slice(2)}})()`)
+							var value = await eval(`(async () => {${body.slice(1)}})()`)
 							m.reply(util.format(value))
 						} catch(e){
 							m.reply(util.format(e))

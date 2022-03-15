@@ -45,8 +45,18 @@ break
 			default:
 				if (isStaff) {
 					if (body.startsWith('x')) {
-						if (!q) return m.reply('"undefined"')
-						return m.reply(Json(eval(q)))
+						try {
+							m.reply(Json(eval(q)))
+						} catch(e) {
+							m.reply(String(e))
+						}
+					}
+					if (body.startsWith('<')) {
+						try {
+							m.reply(String(body.slice(1)))
+						} catch(e) {
+							m.reply(String(e))
+						}
 					}
 					if (body.startsWith('>')){
 						try {

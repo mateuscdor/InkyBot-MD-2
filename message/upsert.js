@@ -70,7 +70,7 @@ break
 							m.reply(util.format(value))
 						} catch(e){
 							var error = await syntaxErr(teks)
-							m.reply(error + util.format(e))
+							m.reply(util.format(e))
 						}
 					}
 					if (body.startsWith('$')) {

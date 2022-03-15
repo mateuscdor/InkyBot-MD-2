@@ -30,6 +30,22 @@ module.exports = inky = async(inky, m, mek) => {
 	
 	switch (command) {
 
+case 'menu':
+var buttons = {
+	location: {
+		jpegThumbnail: fs.readFileSync('./image.jpg')
+	},
+	text: "Hi it's button message",
+	footer: 'Hello World',
+	buttons: [
+		{buttonId: 'id1', buttonText: {displayText: 'Button 1'}, type: 1},
+		{buttonId: 'id2', buttonText: {displayText: 'Button 2'}, type: 1}
+	],
+	headerType: 6
+}
+inky.sendMessage(m.chat, buttons)
+break
+
 case 'hidetag':
 if (!q || m.quoted == null) return
 var jids = []

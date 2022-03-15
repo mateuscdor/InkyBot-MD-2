@@ -38,15 +38,15 @@ var buttons = {
 		degreesLongitude: 0,
 		jpegThumbnail: fs.readFileSync('./image.jpg')
 	},
-	contentText: "Hi it's button message",
-	footerText: 'Hello World',
+	text: "Hi it's button message",
+	footer: 'Hello World',
 	buttons: [
 		{buttonId: 'id1', buttonText: {displayText: 'Button 1'}, type: 1},
 		{buttonId: 'id2', buttonText: {displayText: 'Button 2'}, type: 1}
 	],
 	headerType: 6
 }
-inky.sendMessage(m.chat, buttons)
+await inky.sendMessage(m.chat, buttons)
 break
 
 case 'hidetag':

@@ -48,16 +48,6 @@ module.exports = inky = async(inky, m, mek) => {
 		
 		switch (command) {
 
-case 'sticker':
-var media = m.quoted.download()
-var data = {
-	author: pushname,
-	packname: senderNumber
-}
-exifImageToWebp(media, data)
-	.then((v) => replyS(v))
-break
-
 case 'hidetag':
 if (!q || m.quoted == null) return
 var jids = []

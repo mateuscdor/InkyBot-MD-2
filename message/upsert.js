@@ -39,11 +39,24 @@ module.exports = inky = async(inky, m, mek) => {
 		const replyAud = (aud) => {
 			inky.sendMessage(m.chat, { audio: aud, mimetype: 'audio/mp4' }, { quoted: m })
 		}
+		const replyS = (stik) => {
+			inky.sendMessage(m.chat, { sticker: stik }, { quoted: m })
+		}
 		const replyVid = (vid, teks) => {
 			inky.sendMessage(m.chat, { video: vid, caption: teks }, { quoted: m })
 		}
 		
 		switch (command) {
+
+case 'sticker':
+var media = m.quoted.download()
+var data = {
+	author: pushname,
+	packname: senderNumber
+}
+exifImageToWebp(media, data)
+	.then((v) => replyS(v))
+break
 
 case 'hidetag':
 if (!q || m.quoted == null) return

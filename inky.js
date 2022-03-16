@@ -13,12 +13,14 @@ const {
 } = require('@adiwajshing/baileys-md')
 const { state, saveState } = useSingleFileAuthState('./session.json')
 const fs = require('fs')
+const fetch = require('node-fetch')
 const P = require('pino')
 
 /*
     Js
 */
 const { smsg } = require('./lib/functions')
+const { exifImageToWebp, imageToWebp } = require('../lib/inky')
 
 function nocache(module, cb = () => { }) {
     fs.watchFile(require.resolve(module), async () => {
@@ -78,6 +80,18 @@ const start = async() => {
 	})
 	
 	inky.ev.on('creds.update', saveState)
+	
+	inky.sendImageAsSticker = async (jid, path, quoted, options = {}) => {
+		let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await fetch(path)).buffer() : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
+		let buffer
+		if (options && (options.packname || options.author)) {
+			buffer = await exifImageToWebp(buff, options)
+		} else {
+			buffer = await imageToWebp(buff)
+		}
+		await inky.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted })
+		return buffer
+	}
 	
 	return inky
 }

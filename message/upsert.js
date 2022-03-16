@@ -11,7 +11,7 @@ const yts = require('yt-search')
 /*
 	Js
 */
-const { imageToWebp, videoToWebp, ytmp3, ytmp4 } = require('../lib/inky')
+const { exifImageToWebp, imageToWebp, videoToWebp, ytmp3, ytmp4 } = require('../lib/inky')
 
 module.exports = inky = async(inky, m, mek) => {
 	try {

@@ -20,7 +20,6 @@ const P = require('pino')
     Js
 */
 const { smsg } = require('./lib/functions')
-const { exifImageToWebp, imageToWebp } = require('./lib/inky')
 
 function nocache(module, cb = () => { }) {
     fs.watchFile(require.resolve(module), async () => {

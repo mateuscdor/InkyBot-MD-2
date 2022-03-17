@@ -2,6 +2,8 @@ require('../config')
 /*
     Librerias
 */
+
+const { downloadContentFromMessage } = require('@adiwajshing/baileys-md')
 const { exec } = require('child_process')
 const fs = require('fs')
 const util = require('util')
@@ -14,6 +16,18 @@ const yts = require('yt-search')
 const { exifImageToWebp, exifVideoToWebp, imageToWebp, videoToWebp, ytmp3, ytmp4 } = require('../lib/inky')
 const Json = (string) => {
 	return JSON.stringify(string, null, 2)
+}
+
+const downloadMediaMessage = async (message) => {
+	let mime = (message.msg || message).mimetype || ''
+        let messageType = mime.split('/')[0].replace('application', 'document') ? mime.split('/')[0].replace('application', 'document') : mime.split('/')[0]
+        let extension = mime.split('/')[1]
+        const stream = await downloadContentFromMessage(message, messageType)
+        let buffer = Buffer.from([])
+        for await(const chunk of stream) {
+            buffer = Buffer.concat([buffer, chunk])
+	}
+	return buffer
 }
 
 module.exports = inky = async(inky, m, mek) => {

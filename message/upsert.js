@@ -12,6 +12,9 @@ const yts = require('yt-search')
 	Js
 */
 const { exifImageToWebp, exifVideoToWebp, imageToWebp, videoToWebp, ytmp3, ytmp4 } = require('../lib/inky')
+const Json = (string) => {
+	return JSON.stringify(string, null, 2)
+}
 
 module.exports = inky = async(inky, m, mek) => {
 	try {
@@ -31,10 +34,6 @@ module.exports = inky = async(inky, m, mek) => {
 		const isMe = m.sender.includes(botNumber)
 		const isOwner = owner.includes(senderNumber)
 		const isStaff = staff.includes(senderNumber) || isOwner || isMe
-		
-		const Json = (string) => {
-			return JSON.stringify(string, null, 2)
-		}
 		
 		const replyAud = (aud) => {
 			inky.sendMessage(m.chat, { audio: aud, mimetype: 'audio/mp4' }, { quoted: m })

@@ -18,18 +18,6 @@ const Json = (string) => {
 	return JSON.stringify(string, null, 2)
 }
 
-const downloadMediaMessage = async (message) => {
-	let mime = (message.msg || message).mimetype || ''
-        let messageType = mime.split('/')[0].replace('application', 'document') ? mime.split('/')[0].replace('application', 'document') : mime.split('/')[0]
-        let extension = mime.split('/')[1]
-        const stream = await downloadContentFromMessage(message, messageType)
-        let buffer = Buffer.from([])
-        for await(const chunk of stream) {
-            buffer = Buffer.concat([buffer, chunk])
-	}
-	return buffer
-}
-
 module.exports = inky = async(inky, m, mek) => {
 	try {
 		const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : ''
@@ -48,6 +36,17 @@ module.exports = inky = async(inky, m, mek) => {
 		const isMe = m.sender.includes(botNumber)
 		const isOwner = owner.includes(senderNumber)
 		const isStaff = staff.includes(senderNumber) || isOwner || isMe
+		
+		const downloadMediaMessage = async(message) => {
+			if (m.quoted.mtype === 'imageMessage') {
+				var stream = await downloadContentFromMessage(message, 'image')
+				let buffer = Buffer.from([])
+				for await(const chunk of stream) {
+					buffer = Buffer.concat([buffer, chunk])
+				}
+				return buffer
+			}
+		}
 		
 		const replyAud = (aud) => {
 			inky.sendMessage(m.chat, { audio: aud, mimetype: 'audio/mp4' }, { quoted: m })
